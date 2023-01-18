@@ -4,33 +4,34 @@ import com.scool.highscool.models.Student;
 import com.scool.highscool.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
-    private StudentRepository repository;
+    private final StudentRepository repository;
 
     public StudentService(StudentRepository repository) {
         this.repository = repository;
     }
 
     public Student add(Student newStudent) {
-        return repository.add(newStudent);
+        return repository.save(newStudent);
     }
 
     public Student findById(long id) {
-        return repository.findById(id);
+        return repository.findById(id).get();
     }
 
     public Student edit(Student student) {
-        return repository.edit(student);
+        return repository.save(student);
     }
 
-    public Student remove(long id) {
-        return repository.remove(id);
+    public void remove(long id) {
+        repository.deleteById(id);
     }
 
-    public Set<Student> findAllByAge(int age) {
-        return repository.findAllByAge(age);
+    public List<Student> findAllByAge(int age) {
+        return repository.findAll().stream().filter(f -> f.getAge() == age).collect(Collectors.toList());
     }
 }

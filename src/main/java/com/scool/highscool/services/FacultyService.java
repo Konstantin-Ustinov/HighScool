@@ -4,33 +4,34 @@ import com.scool.highscool.models.Faculty;
 import com.scool.highscool.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {
-    private FacultyRepository repository;
+    private final FacultyRepository repository;
 
     public FacultyService(FacultyRepository repository) {
         this.repository = repository;
     }
 
     public Faculty add(Faculty newFaculty) {
-        return repository.add(newFaculty);
+        return repository.save(newFaculty);
     }
 
-    public Set<Faculty> findAllByColor(String color) {
-        return repository.findAllByColor(color);
+    public List<Faculty> findAllByColor(String color) {
+        return repository.findAll().stream().filter(f -> f.getColor().equals(color)).collect(Collectors.toList());
     }
 
     public Faculty find(long id) {
-        return repository.find(id);
+        return repository.findById(id).get();
     }
 
     public Faculty edit(Faculty faculty) {
-        return repository.edit(faculty);
+        return repository.save(faculty);
     }
 
-    public Faculty remove(long id) {
-        return repository.remove(id);
+    public void remove(long id) {
+        repository.deleteById(id);
     }
 }

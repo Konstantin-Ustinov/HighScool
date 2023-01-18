@@ -5,7 +5,7 @@ import com.scool.highscool.services.FacultyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping("faculty")
@@ -17,8 +17,8 @@ public class FacultyController {
     }
 
     @GetMapping("/color {color}")
-    public ResponseEntity<Set<Faculty>> findAllByColor(@PathVariable String color) {
-        Set<Faculty> faculty = service.findAllByColor(color);
+    public ResponseEntity<List<Faculty>> findAllByColor(@PathVariable String color) {
+        List<Faculty> faculty = service.findAllByColor(color);
 
         if (faculty != null) {
             return ResponseEntity.ok(faculty);
@@ -49,13 +49,10 @@ public class FacultyController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Faculty> deleteFaculty(@PathVariable long id) {
-        Faculty faculty = service.remove(id);
+    public ResponseEntity deleteFaculty(@PathVariable long id) {
+        service.remove(id);
 
-        if (faculty != null) {
-            return ResponseEntity.ok(faculty);
-        }
+        return ResponseEntity.ok().build();
 
-        return ResponseEntity.badRequest().build();
     }
 }

@@ -5,7 +5,7 @@ import com.scool.highscool.services.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping("student")
@@ -17,8 +17,8 @@ public class StudentController {
     }
 
     @GetMapping("/age {age}")
-    public ResponseEntity<Set<Student>> findAllByAge(@PathVariable int age) {
-        Set<Student> students = service.findAllByAge(age);
+    public ResponseEntity<List<Student>> findAllByAge(@PathVariable int age) {
+        List<Student> students = service.findAllByAge(age);
 
         if (students != null) {
             return ResponseEntity.ok(students);
@@ -49,13 +49,10 @@ public class StudentController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Student> deleteFaculty(@PathVariable long id) {
-        Student faculty = service.remove(id);
+    public ResponseEntity deleteFaculty(@PathVariable long id) {
+        service.remove(id);
 
-        if (faculty != null) {
-            return ResponseEntity.ok(faculty);
-        }
+        return ResponseEntity.ok().build();
 
-        return ResponseEntity.badRequest().build();
     }
 }
