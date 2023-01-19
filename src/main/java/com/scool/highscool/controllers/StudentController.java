@@ -39,17 +39,17 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> add(Student faculty) {
-        return ResponseEntity.ok(service.add(faculty));
+    public ResponseEntity<Student> add(Student student) {
+        return ResponseEntity.ok(service.add(student));
     }
 
     @PutMapping
-    public ResponseEntity<Student> editFaculty(Student faculty) {
-        return ResponseEntity.ok(service.edit(faculty));
+    public ResponseEntity<Student> editStudent(Student student) {
+        return ResponseEntity.ok(service.edit(student));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity deleteFaculty(@PathVariable long id) {
+    public ResponseEntity deleteStudent(@PathVariable long id) {
         service.remove(id);
 
         return ResponseEntity.ok().build();
