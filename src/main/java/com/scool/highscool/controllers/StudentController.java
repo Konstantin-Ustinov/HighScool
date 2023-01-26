@@ -5,6 +5,7 @@ import com.scool.highscool.services.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -16,9 +17,9 @@ public class StudentController {
         this.service = service;
     }
 
-    @GetMapping("/age {age}")
-    public ResponseEntity<List<Student>> findAllByAge(@PathVariable int age) {
-        List<Student> students = service.findAllByAge(age);
+    @GetMapping("/age")
+    public ResponseEntity<List<Student>> findAllByAgeBetween(@RequestParam int ageStart, @RequestParam int ageEnd) {
+        List<Student> students = service.findAllByAgeBetween(ageStart, ageEnd);
 
         if (students != null) {
             return ResponseEntity.ok(students);
@@ -36,6 +37,11 @@ public class StudentController {
         }
 
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("findAllStudentsByFaculty {id}")
+    public ResponseEntity<Collection<Student>> findAllStudentsByFaculty(@PathVariable int id) {
+        return ResponseEntity.ok(service.findAllStudentsByFaculty(id));
     }
 
     @PostMapping

@@ -4,6 +4,7 @@ import com.scool.highscool.models.Student;
 import com.scool.highscool.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,10 @@ public class StudentService {
         return repository.findById(id).get();
     }
 
+    public Collection<Student> findAllStudentsByFaculty(int id) {
+        return repository.findAllByFaculty_id((long) id);
+    }
+
     public Student edit(Student student) {
         return repository.save(student);
     }
@@ -31,7 +36,7 @@ public class StudentService {
         repository.deleteById(id);
     }
 
-    public List<Student> findAllByAge(int age) {
-        return repository.findAll().stream().filter(f -> f.getAge() == age).collect(Collectors.toList());
+    public List<Student> findAllByAgeBetween(int ageStart, int ageEnd) {
+        return repository.findByAgeBetween(ageStart, ageEnd);
     }
 }

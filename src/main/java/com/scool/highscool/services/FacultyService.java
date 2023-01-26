@@ -1,11 +1,12 @@
 package com.scool.highscool.services;
 
 import com.scool.highscool.models.Faculty;
+import com.scool.highscool.models.Student;
 import com.scool.highscool.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {
@@ -19,9 +20,25 @@ public class FacultyService {
         return repository.save(newFaculty);
     }
 
-    public List<Faculty> findAllByColor(String color) {
-        return repository.findAll().stream().filter(f -> f.getColor().equals(color)).collect(Collectors.toList());
+    public List<Faculty> findByNameOrColor(String name, String color) {
+        return repository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
     }
+
+    public List<Faculty> findByName(String name) {
+        return repository.findByNameIgnoreCase(name);
+    }
+
+    public List<Faculty> findByColor(String color) {
+        return repository.findByColorIgnoreCase(color);
+    }
+
+    public List<Faculty> findAll() {
+        return repository.findAll();
+    }
+
+//    public Collection<Student> getAllStudentsByFaculty(int id) {
+//        return repository.findAllFromStudentWhereFacultyid(id);
+//    }
 
     public Faculty find(long id) {
         return repository.findById(id).get();
