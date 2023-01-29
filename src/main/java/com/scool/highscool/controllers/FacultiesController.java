@@ -1,20 +1,18 @@
 package com.scool.highscool.controllers;
 
 import com.scool.highscool.models.Faculty;
-import com.scool.highscool.models.Student;
 import com.scool.highscool.services.FacultyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
 
 @RestController
 @RequestMapping("faculty")
-public class FacultyController {
+public class FacultiesController {
     private final FacultyService service;
 
-    public FacultyController(FacultyService service) {
+    public FacultiesController(FacultyService service) {
         this.service = service;
     }
 
