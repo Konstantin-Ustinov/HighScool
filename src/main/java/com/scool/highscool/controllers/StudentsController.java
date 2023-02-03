@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("student")
+@RequestMapping("students")
 public class StudentsController {
     private final StudentService service;
 
@@ -45,7 +45,7 @@ public class StudentsController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> add(Student student) {
+    public ResponseEntity<Student> addStudent(Student student) {
         return ResponseEntity.ok(service.add(student));
     }
 
