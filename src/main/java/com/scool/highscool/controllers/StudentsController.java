@@ -39,7 +39,7 @@ public class StudentsController {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("findAllStudentsByFaculty {id}")
+    @GetMapping("findAllStudentsByFaculty/{id}")
     public ResponseEntity<Collection<Student>> findAllStudentsByFaculty(@PathVariable int id) {
         return ResponseEntity.ok(service.findAllStudentsByFaculty(id));
     }
