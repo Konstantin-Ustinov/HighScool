@@ -2,6 +2,7 @@ package com.scool.highscool.controllers;
 
 import com.scool.highscool.models.Student;
 import com.scool.highscool.services.StudentService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,21 @@ public class StudentsController {
     @GetMapping("findAllStudentsByFaculty/{id}")
     public ResponseEntity<Collection<Student>> findAllStudentsByFaculty(@PathVariable int id) {
         return ResponseEntity.ok(service.findAllStudentsByFaculty(id));
+    }
+
+    @GetMapping("/count_in_school")
+    public ResponseEntity<Integer> getCountAllStudents() {
+        return ResponseEntity.ok(service.getCountAllStudents());
+    }
+
+    @GetMapping("/avg_age")
+    public ResponseEntity<Integer> getAvgAgeStudents() {
+        return ResponseEntity.ok(service.getAvgAgeStudents());
+    }
+
+    @GetMapping("/get_last_five_students")
+    public ResponseEntity<Collection<Student>> getLastFiveStudents() {
+        return ResponseEntity.ok(service.getLastFiveStudents());
     }
 
     @PostMapping
