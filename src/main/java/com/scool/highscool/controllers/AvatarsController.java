@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @RestController
 @RequestMapping("avatars")
@@ -56,5 +57,10 @@ public class AvatarsController {
             response.setContentLength(avatar.getData().length);
             bis.transferTo(bos);
         }
+    }
+
+    @GetMapping(value = "/all_avatars")
+    public ResponseEntity<List<Avatar>> getAllAvatarsPaging(@RequestParam int startPosition, @RequestParam int endPosition) {
+        return ResponseEntity.ok(service.getAllAvatarsPaging(startPosition, endPosition).getContent());
     }
 }

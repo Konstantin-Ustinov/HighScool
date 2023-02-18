@@ -5,6 +5,8 @@ import com.scool.highscool.models.Student;
 import com.scool.highscool.repository.AvatarRepository;
 import com.scool.highscool.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,5 +61,9 @@ public class AvatarService {
 
     public Avatar findAvatarByStudentId(long studentId) {
         return repository.findByStudentId(studentId).orElse(new Avatar());
+    }
+
+    public Page<Avatar> getAllAvatarsPaging(int startPosition, int endPosition) {
+        return repository.findAll(PageRequest.of(startPosition, endPosition));
     }
 }
