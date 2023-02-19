@@ -4,6 +4,8 @@ import com.scool.highscool.models.Avatar;
 import com.scool.highscool.services.AvatarService;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +22,8 @@ import java.util.List;
 @RequestMapping("avatars")
 public class AvatarsController {
 
+    private Logger logger = LoggerFactory.getLogger(AvatarsController.class);
+
     private final AvatarService service;
 
     public AvatarsController(AvatarService service) {
@@ -28,12 +32,14 @@ public class AvatarsController {
 
     @PostMapping(value = "/{studentId}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable long studentId, @RequestParam MultipartFile avatar) throws IOException {
+        logger.info("Was invoked method for uploadAvatar()");
         service.uploadAvatar(studentId, avatar);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/{id}/avatar-from-db")
     public ResponseEntity<byte[]> downloadAvatarFromDB(@PathVariable long id) {
+        logger.info("Was invoked method for downloadAvatarFromDB()");
         Avatar avatar = service.findAvatarByStudentId(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(avatar.getContentType()));
@@ -43,6 +49,7 @@ public class AvatarsController {
 
     @GetMapping(value = "/{id}/avatar-from-hdd")
     public void downloadAvatarFromHdd(@PathVariable long id, HttpServletResponse response) throws IOException {
+        logger.info("Was invoked method for downloadAvatarFromHdd()");
         Avatar avatar = service.findAvatarByStudentId(id);
         Path filePath = Path.of(avatar.getFilePath());
         try (
@@ -61,6 +68,7 @@ public class AvatarsController {
 
     @GetMapping(value = "/all_avatars")
     public ResponseEntity<List<Avatar>> getAllAvatarsPaging(@RequestParam int startPosition, @RequestParam int endPosition) {
+        logger.info("Was invoked method for getAllAvatarsPaging()");
         return ResponseEntity.ok(service.getAllAvatarsPaging(startPosition, endPosition).getContent());
     }
 }
