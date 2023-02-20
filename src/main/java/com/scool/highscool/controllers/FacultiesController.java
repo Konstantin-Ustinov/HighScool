@@ -52,6 +52,12 @@ public class FacultiesController {
         return ResponseEntity.badRequest().build();
     }
 
+    @GetMapping("/find_max_length_name")
+    public ResponseEntity<String> findMaxLengthName() {
+        logger.info("Called method findMaxLengthName() faculty");
+        return ResponseEntity.ok(service.findMaxLengthName());
+    }
+
     @PostMapping
     public ResponseEntity<Faculty> add(Faculty faculty) {
         logger.info("Was invoked method for add() faculty");

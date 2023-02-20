@@ -71,4 +71,9 @@ public class AvatarsController {
         logger.info("Was invoked method for getAllAvatarsPaging()");
         return ResponseEntity.ok(service.getAllAvatarsPaging(startPosition, endPosition).getContent());
     }
+
+    @GetMapping("/get_int")
+    public ResponseEntity<Integer> getInt() {
+        return ResponseEntity.ok(service.getInt());
+    }
 }

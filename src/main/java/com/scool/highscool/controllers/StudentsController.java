@@ -4,7 +4,6 @@ import com.scool.highscool.models.Student;
 import com.scool.highscool.services.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,10 +63,22 @@ public class StudentsController {
         return ResponseEntity.ok(service.getAvgAgeStudents());
     }
 
+    @GetMapping("/avg_age_by_stream")
+    public ResponseEntity<Double> avgAgeByStream() {
+        logger.info("Called method avgAgeByStream() student");
+        return ResponseEntity.ok(service.avgAgeByStream());
+    }
+
     @GetMapping("/get_last_five_students")
     public ResponseEntity<Collection<Student>> getLastFiveStudents() {
         logger.info("Was invoked method for getLastFiveStudents() student");
         return ResponseEntity.ok(service.getLastFiveStudents());
+    }
+
+    @GetMapping("/find_all_start_lit")
+    public ResponseEntity<List<Student>> findAllStartWith(@RequestParam String lit) {
+        logger.info("Called method findAllStartWith() student");
+        return ResponseEntity.ok(service.findAllStartWith(lit));
     }
 
     @PostMapping
