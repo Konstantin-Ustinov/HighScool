@@ -81,6 +81,16 @@ public class StudentsController {
         return ResponseEntity.ok(service.findAllStartWith(lit));
     }
 
+    @GetMapping("/thread1")
+    public void startThread1() {
+        service.startThread1();
+    }
+
+    @GetMapping("/thread2")
+    public void startThread2() {
+        service.startThread2();
+    }
+
     @PostMapping
     public ResponseEntity<Student> addStudent(Student student) {
         logger.info("Was invoked method for addStudent() student");
