@@ -6,6 +6,7 @@ import com.scool.highscool.repository.FacultyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -36,10 +37,6 @@ public class FacultyService {
         return repository.findAll();
     }
 
-//    public Collection<Student> getAllStudentsByFaculty(int id) {
-//        return repository.findAllFromStudentWhereFacultyid(id);
-//    }
-
     public Faculty find(long id) {
         return repository.findById(id).get();
     }
@@ -50,5 +47,9 @@ public class FacultyService {
 
     public void remove(long id) {
         repository.deleteById(id);
+    }
+
+    public String findMaxLengthName() {
+        return repository.findAll().stream().map(Faculty::getName).max(Comparator.comparingInt(String::length)).get();
     }
 }
